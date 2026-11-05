@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>종로 야장 거리</title>
-<meta name="description" content="종로3가 포차거리 · 익선동 · 을지로 — 요즘 뜨는 종로 야장 거리 3곳을 한 화면에서 바꿔 보는 가이드">
+<meta name="description" content="서순라길 · 종로3가 포차거리 · 익선동 · 을지로 — 요즘 뜨는 종로 밤거리 4곳을 한 화면에서 바꿔 보는 가이드">
 <!-- iOS home-screen app mode -->
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="mobile-web-app-capable" content="yes">
@@ -40,6 +40,7 @@
     --safe-bottom: env(safe-area-inset-bottom, 0px);
   }
   /* Per-district accent color */
+  body[data-d="seosulla"] { --accent: #e2725b; --accent-soft: rgba(226,114,91,.15); }
   body[data-d="jongsam"] { --accent: #e0a458; --accent-soft: rgba(224,164,88,.14); }
   body[data-d="ikseon"]  { --accent: #8fb3a0; --accent-soft: rgba(143,179,160,.15); }
   body[data-d="euljiro"] { --accent: #6fb6e8; --accent-soft: rgba(111,182,232,.14); }
@@ -78,14 +79,14 @@
     padding: calc(var(--safe-top) + 8px) 0 10px;
     background: linear-gradient(var(--bg) 82%, transparent);
   }
-  .switch .wrap { display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; }
+  .switch .wrap { display: grid; grid-template-columns: repeat(4, 1fr); gap: 5px; }
   .switch button {
     font: inherit; text-align: left; color: var(--muted);
     background: var(--surface); border: 1px solid var(--line); border-radius: 14px;
-    padding: 9px 10px; min-height: 58px; display: grid; gap: 1px;
+    padding: 8px 8px; min-height: 58px; display: grid; gap: 1px; align-content: start;
   }
-  .switch button b { font-size: 15px; font-weight: 700; color: var(--text); line-height: 1.25; }
-  .switch button span { font-size: 11px; }
+  .switch button b { font-size: 14px; font-weight: 700; color: var(--text); line-height: 1.25; }
+  .switch button span { font-size: 10.5px; line-height: 1.3; word-break: keep-all; }
   .switch button[aria-selected="true"] { border-color: var(--accent); background: var(--accent-soft); }
   .switch button[aria-selected="true"] span { color: var(--accent); }
   .swipe-hint { text-align: center; font-size: 11px; color: var(--dim); margin-top: 6px; }
@@ -150,10 +151,10 @@
   .btn.wide { grid-column: 1 / -1; }
 
   /* Compare table */
-  .compare { width: 100%; border-collapse: collapse; font-size: 13px; word-break: keep-all; }
-  .compare th, .compare td { padding: 9px 6px; border-bottom: 1px solid var(--line); text-align: left; vertical-align: top; }
+  .compare { width: 100%; border-collapse: collapse; font-size: 12px; word-break: keep-all; }
+  .compare th, .compare td { padding: 8px 4px; border-bottom: 1px solid var(--line); text-align: left; vertical-align: top; }
   .compare thead th { color: var(--muted); font-weight: 600; font-size: 12px; }
-  .compare tbody th { color: var(--muted); font-weight: 600; white-space: nowrap; width: 64px; }
+  .compare tbody th { color: var(--muted); font-weight: 600; width: 52px; }
   .compare td.on { color: var(--text); background: var(--accent-soft); }
   .compare tr:last-child th, .compare tr:last-child td { border-bottom: 0; }
 
@@ -162,7 +163,7 @@
   @keyframes fade { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
 </style>
 </head>
-<body data-d="jongsam">
+<body data-d="seosulla">
 
 <header class="hero">
   <svg class="bulbs" viewBox="0 0 390 26" preserveAspectRatio="none" aria-hidden="true">
@@ -174,9 +175,9 @@
     </g>
   </svg>
   <div class="wrap">
-    <span class="eyebrow">🏮 종로 야장 거리 3곳</span>
-    <h1>오늘 밤은<br><em id="heroName">종로3가</em>에서</h1>
-    <p>젊은 사람·외국인으로 붐비는 요즘 종로 야장 거리. 아래 탭을 누르거나 옆으로 밀어 바꿔 보세요.</p>
+    <span class="eyebrow">🏮 종로 밤거리 4곳</span>
+    <h1>오늘 밤은<br><em id="heroName">서순라길</em>에서</h1>
+    <p>젊은 사람·외국인으로 붐비는 요즘 종로 밤거리. 아래 탭을 누르거나 옆으로 밀어 바꿔 보세요.</p>
   </div>
 </header>
 
@@ -189,7 +190,7 @@
 <div class="wrap">
   <section>
     <h2><span class="no">··</span>한눈에 비교</h2>
-    <p class="lead">세 거리 모두 서순라길·종로3가역에서 걸어갈 수 있어요.</p>
+    <p class="lead">네 거리 모두 종로3가역에서 걸어서 15분 안이에요.</p>
     <div class="card" style="padding:6px 10px">
       <table class="compare" id="compare"></table>
     </div>
@@ -211,7 +212,37 @@ const store = {
 // ---------- Data ----------
 const DISTRICTS = [
   {
-    id: "jongsam", short: "종로3가", sub: "포차·갈매기살 골목",
+    id: "seosulla", short: "서순라길", sub: "돌담길·전통주",
+    name: "서순라길",
+    tagline: "종묘 돌담을 따라 걷는 1km — 고즈넉한 한옥 술집 골목",
+    desc: "조선시대 순라군이 돌던 종묘 서쪽 담장길. 한옥을 고친 술집·카페·공방이 담장을 마주 보고 늘어서 있어요. 넷 중 가장 차분해서 이야기 나누기 좋고, 해가 지면 담장 조명이 예뻐집니다. 주말 낮엔 차 없는 거리, 평일엔 차가 다니니 골목에서 조심.",
+    chips: [["종로3가역에서", "도보 5분"], ["가까운 출구", "7·8번"], ["분위기", "돌담·한옥"]],
+    meters: { 외국인: 60, 시끌벅적: 40, "대화 편함": 85 },
+    query: "서순라길",
+    dest: { lat: 37.5722, lng: 126.9930 },
+    subway: { line: "3", station: "종로3가역", exit: "7·8번 출구 → 종묘 서쪽 돌담, 담장 끼고 북쪽으로", walk: "역에서 도보 5분" },
+    busDrop: "종로2가 일대 하차 → 종로 따라 동쪽으로 도보 15분",
+    tip: "<b>금요일 저녁</b> 다람쥐처럼 인기 있는 집은 웨이팅이 잦아요. 예약 가능한 곳은 미리 전화, 2차는 7시 이후 술만 파는 헤리티지 클럽이 시간 맞추기 좋습니다.",
+    places: [
+      { id: "daramgee", name: "우리술집 다람쥐", kind: "전통주 · 한식 주점", tags: ["1차 추천", "전통주", "예약 권장"], pick: true,
+        desc: "서순라길 터줏대감 전통주점. 술 종류에 따라 잔을 달리 내주고, 세련된 인테리어로 생일 자리로 무난해요.",
+        menu: "<b>새우 미나리전</b>, <b>피순대 구이</b>, 참소라무침 · 전통주·막걸리 다양", tip: "웨이팅 잦음 — 예약하거나 오픈 직후 입장", addr: "서울 종로구 서순라길 101" },
+      { id: "sunlagil", name: "순라길 (홍어집)", kind: "홍어 전문 · 1966년부터 2대째", tags: ["노포", "식객 소개"],
+        desc: "만화 『식객』에도 나온 홍어 노포. 국내산 홍어 삼합·찜에 숙성 김치가 유명해요.",
+        menu: "<b>홍어삼합</b>, 홍어찜, 홍어라면", tip: "호불호 메뉴라 일행 취향 먼저 확인", addr: "서울 종로구 서순라길 141" },
+      { id: "heritage", name: "헤리티지 클럽", kind: "한옥 카페 & 바", tags: ["2차 추천", "한옥 중정", "조용함"], pick: true,
+        desc: "중정 있는 한옥에 유리 지붕을 얹은 공간. 테이블 간격이 넉넉하고 조도가 낮아 차분히 이야기하기 좋아요.",
+        menu: "저녁 7시 이후엔 커피 대신 <b>술만</b> 판매", tip: "1차 끝나고 7시 넘어 이동하면 딱", addr: "서울 종로구 서순라길 75 1층" },
+      { id: "queensguard", name: "퀸즈가드", kind: "칵테일 · 맥주 · 와인", tags: ["칵테일", "돌담뷰"],
+        desc: "영국 감성 바. 가게 달마시안 '레이디'가 유명하고, 돌담을 보며 마시는 바깥 자리가 인기예요.",
+        menu: "<b>퀸즈가드 시그니처 진</b> 약 15,000원", tip: "11월 밤엔 실내 자리 위주로", addr: "서울 종로구 서순라길 115" },
+      { id: "gypsy", name: "서울집시", kind: "수제 맥주 브루어리", tags: ["맥주", "다람쥐 근처"],
+        desc: "직접 양조한 맥주를 파는 곳. 산미 있는 맥주가 다양하고 큰 창 너머로 돌담길이 보여요.",
+        menu: "하우스 <b>수제 맥주</b> 여러 종", tip: "다람쥐에서 몇 걸음 — 맥주로 입가심", addr: "서울 종로구 서순라길 107" }
+    ]
+  },
+  {
+    id: "jongsam", short: "종로3가", sub: "포차·갈매기살",
     name: "종로3가 포차거리",
     tagline: "타임아웃 '세계에서 가장 멋진 동네' — 지금 가장 핫한 야장",
     desc: "돈화문로11길과 갈매기살 골목을 따라 숯불 고깃집·호프집이 길에 테이블을 내놓습니다. 평일 저녁에도 손님 10명 중 2~3명이 외국인이고, 매출의 65%가 20~30대일 만큼 젊어졌어요. 연기 자욱한 숯불 + 왁자지껄한 분위기가 핵심.",
@@ -295,15 +326,15 @@ const DISTRICTS = [
 
 // Order of compare rows
 const COMPARE = [
-  ["분위기", { jongsam: "숯불 연기·왁자지껄", ikseon: "한옥 골목·감성", euljiro: "네온·레트로 노포" }],
-  ["대표 안주", { jongsam: "갈매기살·항정살", ikseon: "수제맥주·퓨전", euljiro: "노가리·골뱅이" }],
-  ["외국인", { jongsam: "매우 많음", ikseon: "많음", euljiro: "많음" }],
-  ["서순라길→", { jongsam: "도보 5분", ikseon: "도보 10분", euljiro: "도보 15분" }],
-  ["이럴 때", { jongsam: "고기에 소주, 제대로 야장", ikseon: "분위기 있게 2차", euljiro: "맥주에 노가리, 3차" }]
+  ["분위기", { seosulla: "돌담·한옥 차분", jongsam: "숯불 연기·왁자지껄", ikseon: "한옥 골목·감성", euljiro: "네온·레트로 노포" }],
+  ["대표 안주", { seosulla: "전통주·전·홍어", jongsam: "갈매기살·항정살", ikseon: "수제맥주·퓨전", euljiro: "노가리·골뱅이" }],
+  ["외국인", { seosulla: "보통", jongsam: "매우 많음", ikseon: "많음", euljiro: "많음" }],
+  ["서순라길 기준", { seosulla: "출발점", jongsam: "도보 5분", ikseon: "도보 10분", euljiro: "도보 15분" }],
+  ["이럴 때", { seosulla: "조용히 대화, 1차", jongsam: "고기에 소주, 제대로 야장", ikseon: "분위기 있게 2차", euljiro: "맥주에 노가리, 3차" }]
 ];
 
 // ---------- State ----------
-let current = DISTRICTS.find(d => d.id === location.hash.slice(1))?.id || store.get("jy-district", "jongsam");
+let current = DISTRICTS.find(d => d.id === location.hash.slice(1))?.id || store.get("jy-district", "seosulla");
 let mode = store.get("jy-mode", "subway");
 let favs = new Set(store.get("jy-favs", []));
 
