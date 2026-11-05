@@ -14,6 +14,7 @@
 <meta name="format-detection" content="telephone=no">
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
 <link rel="manifest" href="manifest.webmanifest">
+<link rel="stylesheet" href="gallery.css">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@500;700;900&display=swap" rel="stylesheet">
@@ -198,10 +199,11 @@
 
   <footer>
     거리 분위기·통계는 서울신문(2026.9), 파이낸셜뉴스(2026.7), 한국경제 보도 기준이며, 가게 정보는 리뷰 사이트(뽈레 등)·매거진 기준이라 영업시간·메뉴·가격은 바뀔 수 있습니다.
-    11월 밤엔 날씨에 따라 야장을 안 펴는 곳도 있어요. 출발 전 지도 앱에서 한 번 더 확인하세요.
+    11월 밤엔 날씨에 따라 야장을 안 펴는 곳도 있어요. 출발 전 지도 앱에서 한 번 더 확인하세요. 거리 사진은 Flickr의 크리에이티브 커먼즈 사진으로, 사진마다 작가와 라이선스를 표기했어요. 가게 사진 카드는 네이버 이미지 검색으로 연결됩니다.
   </footer>
 </div>
 
+<script src="gallery.js"></script>
 <script>
 // ---------- Safe storage helpers ----------
 const store = {
@@ -338,6 +340,21 @@ let current = DISTRICTS.find(d => d.id === location.hash.slice(1))?.id || store.
 let mode = store.get("jy-mode", "subway");
 let favs = new Set(store.get("jy-favs", []));
 
+// ---------- Photo helpers ----------
+// Food keyword for the "음식" photo card (first bold menu item unless overridden)
+const FOOD = { japbang: "스테이크", heritage: "칵테일", cheongsu: "디저트", mansun: "노가리" };
+// Search name overrides for stores whose names are ambiguous
+const SEARCH = { sunlagil: ["종로 순라길 홍어", ""], golbaengi: ["을지로 골뱅이골목", ""], artmonster: ["아트몬스터 익선", ""] };
+function foodOf(p) {
+  if (FOOD[p.id]) return FOOD[p.id];
+  const m = p.menu.match(/<b>([^<]+)<\/b>/);
+  return m ? m[1].trim() : "";
+}
+function stripFor(p, d) {
+  const [name, area] = SEARCH[p.id] || [p.name.replace(/\s*\(.*\)\s*/g, " ").trim(), p.area ? "" : d.short];
+  return storeStripHTML(name, area, foodOf(p));
+}
+
 // ---------- Helpers ----------
 const enc = encodeURIComponent;
 function searchLinks(q) {
@@ -372,6 +389,7 @@ function placeCard(p, i, d) {
     </div>
     <div class="tags">${tags}</div>
     <p>${p.desc}</p>
+    ${stripFor(p, d)}
     <div class="menu">🍺 ${p.menu}</div>
     <div class="tip">💡 ${p.tip}</div>
     <div class="addr">📍 ${p.addr}</div>
@@ -394,6 +412,7 @@ function renderView() {
     <div class="fade">
     <section class="intro">
       <div class="card">
+        ${streetGalleryHTML(d.id)}
         <h3>${d.name}</h3>
         <div class="tagline">${d.tagline}</div>
         <p>${d.desc}</p>
@@ -435,6 +454,7 @@ function renderView() {
     </section>
     </div>`;
 
+  initGalleries(document.getElementById("view"));
   document.querySelectorAll(".star").forEach(b => b.addEventListener("click", () => {
     const id = b.dataset.id;
     favs.has(id) ? favs.delete(id) : favs.add(id);
